@@ -1,0 +1,208 @@
+.services {
+    background: var(--color-bg-primary);
+    position: relative;
+    overflow: hidden;
+}
+
+.services::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+    filter: blur(60px);
+}
+
+.services-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.service-card {
+    position: relative;
+}
+
+.service-card-inner {
+    position: relative;
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    transition: all 0.3s ease;
+}
+
+.service-card:hover .service-card-inner {
+    transform: translateY(-5px);
+    border-color: rgba(212, 175, 55, 0.3);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.service-icon-wrapper {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 1.5rem;
+}
+
+.service-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(107, 142, 35, 0.15));
+    border-radius: 50%;
+    border: 2px solid rgba(212, 175, 55, 0.2);
+}
+
+.icon-glow {
+    display: none;
+}
+
+.service-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-title {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: var(--color-text-primary);
+}
+
+.service-description {
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    flex: 1;
+}
+
+.service-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.service-price {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-gold);
+}
+
+.service-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, var(--color-gold), var(--color-mehendi));
+    border: none;
+    color: var(--color-bg-primary);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.service-btn:hover {
+    transform: translateX(3px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.service-btn svg {
+    transition: transform 0.2s ease;
+}
+
+.service-btn:hover svg {
+    transform: translateX(2px);
+}
+
+.service-number {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-family: var(--font-serif);
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: rgba(212, 175, 55, 0.06);
+    line-height: 1;
+    pointer-events: none;
+}
+
+.services-note {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(212, 175, 55, 0.05);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.services-note p {
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.services-note a {
+    color: var(--color-gold);
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.services-note a:hover {
+    color: var(--color-mehendi);
+}
+
+@media (max-width: 968px) {
+    .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .service-card-inner {
+        padding: 2rem;
+    }
+
+    .service-title {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .service-icon-wrapper {
+        width: 60px;
+        height: 60px;
+    }
+
+    .service-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+    }
+
+    .service-number {
+        font-size: 3rem;
+    }
+}

@@ -1,0 +1,133 @@
+.contact {
+    background: var(--color-bg-secondary);
+}
+
+.contact-content-centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+.instagram-booking-card {
+    max-width: 600px;
+    width: 100%;
+    background: var(--color-bg-primary);
+    padding: 3rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+}
+
+.instagram-icon-large {
+    margin: 0 auto 2rem;
+    width: 80px;
+    height: 80px;
+    color: var(--color-gold);
+}
+
+.instagram-booking-card h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--color-gold), var(--color-mehendi));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.booking-description {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+}
+
+.instagram-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.25rem 3rem;
+    background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: white;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-sans);
+    font-size: 1.25rem;
+    font-weight: 600;
+    transition: all var(--transition-medium);
+    box-shadow: 0 4px 20px rgba(188, 24, 136, 0.3);
+    text-decoration: none;
+}
+
+.instagram-cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(188, 24, 136, 0.5);
+    color: white;
+}
+
+.booking-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin: 3rem 0 2rem;
+    padding: 2rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.feature-icon {
+    font-size: 2rem;
+}
+
+.feature-item span:last-child {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+}
+
+.booking-note {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+    margin-top: 2rem;
+}
+
+.booking-note strong {
+    color: var(--color-gold);
+}
+
+@media (max-width: 968px) {
+    .instagram-booking-card {
+        padding: 2.5rem 2rem;
+    }
+
+    .booking-features {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .instagram-booking-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .instagram-booking-card h3 {
+        font-size: 1.75rem;
+    }
+
+    .booking-description {
+        font-size: 1rem;
+    }
+
+    .instagram-cta-btn {
+        padding: 1rem 2rem;
+        font-size: 1.125rem;
+    }
+}
