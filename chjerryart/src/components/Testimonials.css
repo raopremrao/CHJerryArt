@@ -165,6 +165,16 @@
 @media (max-width: 600px) {
     .testimonial-card {
         padding: 1.5rem;
+        border: 1px solid rgba(212, 175, 55, 0.1);
+    }
+
+    .testimonial-text {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .stars .star {
+        font-size: 1.25rem;
     }
 
     .testimonial-author {

@@ -5,18 +5,34 @@ import './Navbar.css';
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
+    const [hidden, setHidden] = useState(false);
+    const [lastScrollY, setLastScrollY] = useState(0);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
 
     useEffect(() => {
         const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
+            const currentScrollY = window.scrollY;
+
+            // Set scrolled state for background blur effect
+            setScrolled(currentScrollY > 50);
+
+            // Hide/show navbar based on scroll direction
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                // Scrolling down - hide navbar
+                setHidden(true);
+            } else if (currentScrollY < lastScrollY) {
+                // Scrolling up - show navbar
+                setHidden(false);
+            }
+
+            setLastScrollY(currentScrollY);
         };
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    }, [lastScrollY]);
 
     const scrollToSection = (id) => {
         // If not on homepage, navigate to homepage first
@@ -46,10 +62,7 @@ const Navbar = () => {
 
     return (
         <motion.nav
-            className={`navbar ${scrolled ? 'scrolled' : ''}`}
-            initial={{ y: -100 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className={`navbar ${scrolled ? 'scrolled' : ''} ${hidden ? 'hidden' : ''}`}
         >
             <div className="navbar-container">
                 {/* Logo */}

@@ -52,6 +52,7 @@
     margin-bottom: 1.5rem;
     background: linear-gradient(135deg, var(--color-gold), var(--color-mehendi));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -104,6 +105,7 @@
     font-weight: 700;
     background: linear-gradient(135deg, var(--color-gold), var(--color-mehendi));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 0.5rem;
 }
@@ -120,11 +122,22 @@
     .about-content {
         grid-template-columns: 1fr;
         gap: 3rem;
+        text-align: center;
     }
 
     .about-image {
-        max-width: 350px;
+        max-width: 300px;
         margin: 0 auto;
+    }
+
+    .about-heading {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .about-quote {
+        margin: 2rem auto;
+        text-align: left;
     }
 
     .about-stats {
@@ -138,7 +151,27 @@
 }
 
 @media (max-width: 600px) {
+    .about-content {
+        gap: 2.5rem;
+    }
+
     .about-stats {
         grid-template-columns: 1fr;
+        gap: 2rem;
+        padding-top: 1.5rem;
+    }
+
+    .about-heading {
+        font-size: 1.75rem;
+    }
+
+    .stat-item {
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .stat-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
     }
 }

@@ -82,6 +82,11 @@
 }
 
 @media (max-width: 968px) {
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 3rem;
+    }
+
     .preview-grid {
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         gap: 1.5rem;
@@ -91,5 +96,19 @@
 @media (max-width: 600px) {
     .preview-grid {
         grid-template-columns: 1fr;
+        gap: 2rem;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .section-title {
+        font-size: 1.75rem;
+        margin-bottom: 2rem;
+    }
+
+    .explore-btn {
+        width: 100%;
+        max-width: 300px;
     }
 }

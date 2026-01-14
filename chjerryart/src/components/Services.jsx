@@ -31,7 +31,7 @@ const Services = () => {
                         <motion.div
                             key={service.id}
                             className="service-card"
-                            initial={{ opacity: 0, y: 50 }}
+                            initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: '-50px' }}
                             transition={{
@@ -40,30 +40,23 @@ const Services = () => {
                                 ease: 'easeOut'
                             }}
                         >
-                            <div className="service-card-inner">
-                                <div className="service-icon-wrapper">
-                                    <span className="service-icon">{service.icon}</span>
+                            <div className="service-icon-wrapper">
+                                <span className="service-icon">{service.icon}</span>
+                            </div>
+
+                            <div className="service-content">
+                                <h3 className="service-title">{service.title}</h3>
+                                <p className="service-description">{service.description}</p>
+
+                                <div className="service-footer">
+                                    <span className="service-price">{service.price}</span>
+                                    <button
+                                        className="service-btn"
+                                        onClick={scrollToContact}
+                                    >
+                                        Book Now
+                                    </button>
                                 </div>
-
-                                <div className="service-content">
-                                    <h3 className="service-title">{service.title}</h3>
-                                    <p className="service-description">{service.description}</p>
-
-                                    <div className="service-footer">
-                                        <span className="service-price">{service.price}</span>
-                                        <button
-                                            className="service-btn"
-                                            onClick={scrollToContact}
-                                        >
-                                            Book Now
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                <path d="M1 8h14M8 1l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div className="service-number">0{service.id}</div>
                             </div>
                         </motion.div>
                     ))}
