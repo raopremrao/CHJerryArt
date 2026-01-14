@@ -71,7 +71,7 @@ const Footer = () => {
                         © {currentYear} C.H. Divya Art Portfolio. All rights reserved.
                     </p>
                     <p className="built-with">
-                        Built with ❤️ using React, Vite, GSAP & Lenis
+                        Built with care for Gudya
                     </p>
                 </div>
             </div>
