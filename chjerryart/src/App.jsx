@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import useLenis from './hooks/useLenis';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -53,6 +54,7 @@ function App() {
                 </Routes>
                 <Footer />
             </div>
+            <Analytics />
         </Router>
     );
 }

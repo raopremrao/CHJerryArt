@@ -10,14 +10,20 @@ const FullGallery = () => {
 
     // All images from public/images/AllArt/
     const allArtworks = [
-        { id: 7, src: '/images/AllArt/Navratri.jpg', title: 'Navratri Special', category: 'Cultural' },
-        { id: 4, src: '/images/AllArt/hand2.jpg', title: 'Intricate Hand Art', category: 'Bridal' },
-        { id: 1, src: '/images/AllArt/art.jpg', title: 'Artistic Mehendi Design', category: 'Sketch' },
-        { id: 6, src: '/images/AllArt/hands1.jpg', title: 'Bridal Mehendi', category: 'Bridal' },
-        { id: 2, src: '/images/AllArt/art2.jpg', title: 'Mandala Art', category: 'Mandala' },
-        { id: 8, src: '/images/AllArt/hand4.jpg', title: 'Henna Aroma Design', category: 'Mehendi' },
-        { id: 3, src: '/images/AllArt/art3.jpg', title: 'Traditional Mehendi Pattern', category: 'Sketch' },
-        { id: 5, src: '/images/AllArt/hand3.jpg', title: 'Elegant Hand Design', category: 'Bridal' },
+        { id: 1, src: '/images/AllArt/Navratri.jpg', title: 'Navratri Special', category: 'Cultural' },
+        { id: 2, src: '/images/AllArt/hand2.jpg', title: 'Intricate Hand Art', category: 'Bridal' },
+        { id: 3, src: '/images/AllArt/art.jpg', title: 'Artistic Mehendi Design', category: 'Sketch' },
+        { id: 4, src: '/images/AllArt/hands1.jpg', title: 'Bridal Mehendi', category: 'Bridal' },
+        { id: 5, src: '/images/AllArt/art2.jpg', title: 'Mandala Art', category: 'Mandala' },
+        { id: 6, src: '/images/AllArt/hand4.jpg', title: 'Henna Aroma Design', category: 'Mehendi' },
+        { id: 7, src: '/images/AllArt/art3.jpg', title: 'Traditional Mehendi Pattern', category: 'Sketch' },
+        { id: 8, src: '/images/AllArt/hand3.jpg', title: 'Elegant Hand Design', category: 'Bridal' },
+        { id: 9, src: '/images/AllArt/mahendi/mahendi6.jpeg', title: 'Mahendi Design', category: 'Bridal' },
+        { id: 10, src: '/images/AllArt/mahendi/mahendi5.jpeg', title: 'Mahendi Design', category: 'Mehendi' },
+        { id: 11, src: '/images/AllArt/mahendi/mahendi4.jpeg', title: 'Mahendi Design', category: 'Mehendi' },
+        { id: 12, src: '/images/AllArt/mahendi/mahendi3.jpeg', title: 'Mahendi Design', category: 'Mehendi' },
+        { id: 13, src: '/images/AllArt/mahendi/mahendi2.jpeg', title: 'Mahendi Design', category: 'Bridal' },
+        { id: 14, src: '/images/AllArt/mahendi/mahendi1.jpeg', title: 'Mahendi Design', category: 'Mehendi' },
     ];
 
     const categories = ['All', 'Mehendi', 'Bridal', 'Cultural', 'Sketch', 'Mandala'];
