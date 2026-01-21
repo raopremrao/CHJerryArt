@@ -55,7 +55,7 @@ const Navbar = () => {
 
     const navLinks = [
         { name: 'About', id: 'about', type: 'scroll' },
-        { name: 'Gallery', id: 'gallery', type: 'scroll' },
+        { name: 'Gallery', path: '/gallery', type: 'link' },
         { name: 'Services', id: 'services', type: 'scroll' },
         { name: 'Contact', id: 'contact', type: 'scroll' },
     ];
