@@ -4,3 +4,4 @@ Allow: /
 
 # Sitemap location
 Sitemap: https://chjerryart.vercel.app/sitemap.xml
+Sitemap: https://chjerryart.vercel.app/sitemap-pages.xml
