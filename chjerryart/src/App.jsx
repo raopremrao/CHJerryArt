@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
+import { AdminProvider } from './context/AdminContext';
 import useLenis from './hooks/useLenis';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -11,6 +12,7 @@ import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import FullGallery from './pages/FullGallery';
+import AdminPanel from './components/AdminPanel';
 import './index.css';
 
 // Homepage Component
@@ -41,21 +43,24 @@ function App() {
     }, []);
 
     return (
-        <Router>
-            <div className="App">
-                <Navbar />
-                <Routes>
-                    <Route path="/" element={
-                        <main>
-                            <HomePage />
-                        </main>
-                    } />
-                    <Route path="/gallery" element={<FullGallery />} />
-                </Routes>
-                <Footer />
-            </div>
-            <Analytics />
-        </Router>
+        <AdminProvider>
+            <Router>
+                <div className="App">
+                    <Navbar />
+                    <Routes>
+                        <Route path="/" element={
+                            <main>
+                                <HomePage />
+                            </main>
+                        } />
+                        <Route path="/gallery" element={<FullGallery />} />
+                    </Routes>
+                    <Footer />
+                    <AdminPanel />
+                </div>
+                <Analytics />
+            </Router>
+        </AdminProvider>
     );
 }
 

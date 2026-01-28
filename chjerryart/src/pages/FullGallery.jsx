@@ -1,50 +1,56 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useAdmin } from '../context/AdminContext';
+import { fetchArtworks, fetchCategories } from '../services/galleryService';
+import AdminPanel from '../components/AdminPanel';
 import './FullGallery.css';
 
 const FullGallery = () => {
     const [selectedCategory, setSelectedCategory] = useState('All');
+    const [artworks, setArtworks] = useState([]);
+    const [categories, setCategories] = useState(['All', 'Mehendi', 'Bridal', 'Cultural', 'Sketch', 'Mandala']);
     const [filteredArtworks, setFilteredArtworks] = useState([]);
     const [selectedArtwork, setSelectedArtwork] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const { isAdmin } = useAdmin();
 
-    // All images from public/images/AllArt/
-    const allArtworks = [
-        { id: 1, src: '/images/AllArt/Navratri.jpg', title: 'Navratri Special', category: 'Cultural' },
-        { id: 2, src: '/images/AllArt/hand2.jpg', title: 'Intricate Hand Art', category: 'Bridal' },
-        { id: 3, src: '/images/AllArt/art.jpg', title: 'Artistic Mehendi Design', category: 'Sketch' },
-        { id: 4, src: '/images/AllArt/hands1.jpg', title: 'Bridal Mehendi', category: 'Bridal' },
-        { id: 5, src: '/images/AllArt/art2.jpg', title: 'Mandala Art', category: 'Mandala' },
-        { id: 6, src: '/images/AllArt/hand4.jpg', title: 'Henna Aroma Design', category: 'Mehendi' },
-        { id: 7, src: '/images/AllArt/art3.jpg', title: 'Traditional Mehendi Pattern', category: 'Sketch' },
-        { id: 8, src: '/images/AllArt/hand3.jpg', title: 'Elegant Hand Design', category: 'Bridal' },
-        { id: 9, src: '/images/AllArt/mahendi/mahendi6.jpeg', title: 'Mahendi Design', category: 'Bridal' },
-        { id: 10, src: '/images/AllArt/mahendi/mahendi5.jpeg', title: 'Mahendi Design', category: 'Mehendi' },
-        { id: 11, src: '/images/AllArt/mahendi/mahendi4.jpeg', title: 'Mahendi Design', category: 'Mehendi' },
-        { id: 12, src: '/images/AllArt/mahendi/mahendi3.jpeg', title: 'Mahendi Design', category: 'Mehendi' },
-        { id: 13, src: '/images/AllArt/mahendi/mahendi2.jpeg', title: 'Mahendi Design', category: 'Bridal' },
-        { id: 14, src: '/images/AllArt/mahendi/mahendi1.jpeg', title: 'Mahendi Design', category: 'Mehendi' },
-        { id: 15, src: '/images/AllArt/hand/hand1.jpeg', title: 'Mahendi Design', category: 'Bridal' },
-        { id: 16, src: '/images/AllArt/hand/hand2.jpeg', title: 'Mahendi Design', category: 'Mehendi' },
-        { id: 17, src: '/images/AllArt/hand/hand3.jpeg', title: 'Mahendi Design', category: 'Mehendi' },
-        { id: 18, src: '/images/AllArt/hand/hand4.jpeg', title: 'Mahendi Design', category: 'Mehendi' },
-        { id: 19, src: '/images/AllArt/hand/hand5.jpeg', title: 'Mahendi Design', category: 'Mehendi' },
-    ];
+    const loadData = useCallback(async () => {
+        setIsLoading(true);
+        const [artworksResult, categoriesResult] = await Promise.all([
+            fetchArtworks(),
+            fetchCategories()
+        ]);
 
-    const categories = ['All', 'Mehendi', 'Bridal', 'Cultural', 'Sketch', 'Mandala'];
+        if (artworksResult.data) {
+            setArtworks(artworksResult.data);
+        }
+        if (categoriesResult.data) {
+            setCategories(categoriesResult.data);
+        }
+        setIsLoading(false);
+    }, []);
+
+    useEffect(() => {
+        loadData();
+    }, [loadData]);
 
     useEffect(() => {
         if (selectedCategory === 'All') {
-            setFilteredArtworks(allArtworks);
+            setFilteredArtworks(artworks);
         } else {
-            setFilteredArtworks(allArtworks.filter(art => art.category === selectedCategory));
+            setFilteredArtworks(artworks.filter(art => art.category === selectedCategory));
         }
-    }, [selectedCategory]);
+    }, [selectedCategory, artworks]);
 
     useEffect(() => {
         // Scroll to top when page loads
         window.scrollTo(0, 0);
     }, []);
+
+    const handleArtworksChange = () => {
+        loadData();
+    };
 
     return (
         <div className="full-gallery-page">
@@ -82,42 +88,52 @@ const FullGallery = () => {
                         ))}
                     </div>
 
-                    {/* Gallery Grid */}
-                    <motion.div className="gallery-grid" layout>
-                        <AnimatePresence mode="popLayout">
-                            {filteredArtworks.map((artwork) => (
-                                <motion.div
-                                    key={artwork.id}
-                                    className="gallery-item"
-                                    layout
-                                    initial={{ opacity: 0, scale: 0.8 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.8 }}
-                                    transition={{ duration: 0.4 }}
-                                    whileHover={{ y: -8 }}
-                                    onClick={() => setSelectedArtwork(artwork)}
-                                >
-                                    <div className="gallery-item-image">
-                                        <img
-                                            src={artwork.src}
-                                            alt={artwork.title}
-                                            loading="lazy"
-                                        />
-                                        <div className="category-badge">{artwork.category}</div>
-                                        <div className="gallery-item-overlay">
-                                            <h4>{artwork.title}</h4>
-                                            <p>Click to view</p>
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </AnimatePresence>
-                    </motion.div>
-
-                    {filteredArtworks.length === 0 && (
-                        <div className="no-results">
-                            <p>No artwork found in this category</p>
+                    {/* Loading State */}
+                    {isLoading ? (
+                        <div className="gallery-loading">
+                            <div className="loading-spinner-large"></div>
+                            <p>Loading gallery...</p>
                         </div>
+                    ) : (
+                        <>
+                            {/* Gallery Grid */}
+                            <motion.div className="gallery-grid" layout>
+                                <AnimatePresence mode="popLayout">
+                                    {filteredArtworks.map((artwork) => (
+                                        <motion.div
+                                            key={artwork.id}
+                                            className="gallery-item"
+                                            layout
+                                            initial={{ opacity: 0, scale: 0.8 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            exit={{ opacity: 0, scale: 0.8 }}
+                                            transition={{ duration: 0.4 }}
+                                            whileHover={{ y: -8 }}
+                                            onClick={() => setSelectedArtwork(artwork)}
+                                        >
+                                            <div className="gallery-item-image">
+                                                <img
+                                                    src={artwork.src}
+                                                    alt={artwork.title}
+                                                    loading="lazy"
+                                                />
+                                                <div className="category-badge">{artwork.category}</div>
+                                                <div className="gallery-item-overlay">
+                                                    <h4>{artwork.title}</h4>
+                                                    <p>Click to view</p>
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    ))}
+                                </AnimatePresence>
+                            </motion.div>
+
+                            {filteredArtworks.length === 0 && (
+                                <div className="no-results">
+                                    <p>No artwork found in this category</p>
+                                </div>
+                            )}
+                        </>
                     )}
                 </div>
             </section>
@@ -156,6 +172,9 @@ const FullGallery = () => {
                     </motion.div>
                 )}
             </AnimatePresence>
+
+            {/* Admin Panel */}
+            {isAdmin && <AdminPanel onArtworksChange={handleArtworksChange} />}
         </div>
     );
 };

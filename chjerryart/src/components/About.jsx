@@ -1,7 +1,34 @@
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
+import AdminLoginPopup from './AdminLoginPopup';
 import './About.css';
 
 const About = () => {
+    const [showLoginPopup, setShowLoginPopup] = useState(false);
+    const clickCountRef = useRef(0);
+    const clickTimeoutRef = useRef(null);
+
+    const handleImageClick = () => {
+        // Increment click count
+        clickCountRef.current += 1;
+
+        // Clear previous timeout
+        if (clickTimeoutRef.current) {
+            clearTimeout(clickTimeoutRef.current);
+        }
+
+        // Check if 10 clicks reached
+        if (clickCountRef.current >= 10) {
+            setShowLoginPopup(true);
+            clickCountRef.current = 0;
+        } else {
+            // Reset counter after 3 seconds of inactivity
+            clickTimeoutRef.current = setTimeout(() => {
+                clickCountRef.current = 0;
+            }, 3000);
+        }
+    };
+
     return (
         <section className="about section" id="about">
             <div className="container">
@@ -16,7 +43,7 @@ const About = () => {
                         transition={{ duration: 0.8, ease: 'easeOut' }}
                         whileHover={{ scale: 1.05 }}
                     >
-                        <div className="image-wrapper">
+                        <div className="image-wrapper" onClick={handleImageClick}>
                             <img
                                 src="/images/Artist/DP.jpg"
                                 alt="C.H. Divya - Artist"
@@ -65,15 +92,22 @@ const About = () => {
                                 <span className="stat-label">Bridal Mehendi</span>
                             </div>
                             <div className="stat-item">
-                                <span className="stat-number">5+</span>
+                                <span className="stat-number">8+</span>
                                 <span className="stat-label">Years Experience</span>
                             </div>
                         </div>
                     </motion.div>
                 </div>
             </div>
+
+            {/* Admin Login Popup */}
+            <AdminLoginPopup
+                isOpen={showLoginPopup}
+                onClose={() => setShowLoginPopup(false)}
+            />
         </section>
     );
 };
 
 export default About;
+

@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { artworks, categories } from '../data/artworks';
+import { fetchArtworks, fetchCategories } from '../services/galleryService';
 import GalleryItem from './GalleryItem';
 import './Gallery.css';
 
@@ -10,9 +10,32 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Gallery = () => {
     const [selectedCategory, setSelectedCategory] = useState('All');
-    const [filteredArtworks, setFilteredArtworks] = useState(artworks);
+    const [artworks, setArtworks] = useState([]);
+    const [categories, setCategories] = useState(['All', 'Mehendi', 'Bridal', 'Cultural', 'Sketch', 'Mandala']);
+    const [filteredArtworks, setFilteredArtworks] = useState([]);
     const [selectedArtwork, setSelectedArtwork] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
     const sectionRef = useRef(null);
+
+    const loadData = useCallback(async () => {
+        setIsLoading(true);
+        const [artworksResult, categoriesResult] = await Promise.all([
+            fetchArtworks(),
+            fetchCategories()
+        ]);
+
+        if (artworksResult.data) {
+            setArtworks(artworksResult.data);
+        }
+        if (categoriesResult.data) {
+            setCategories(categoriesResult.data);
+        }
+        setIsLoading(false);
+    }, []);
+
+    useEffect(() => {
+        loadData();
+    }, [loadData]);
 
     useEffect(() => {
         if (selectedCategory === 'All') {
@@ -20,7 +43,7 @@ const Gallery = () => {
         } else {
             setFilteredArtworks(artworks.filter(art => art.category === selectedCategory));
         }
-    }, [selectedCategory]);
+    }, [selectedCategory, artworks]);
 
     useEffect(() => {
         const section = sectionRef.current;
@@ -56,20 +79,26 @@ const Gallery = () => {
                 </div>
 
                 {/* Gallery Grid */}
-                <motion.div
-                    className="gallery-grid"
-                    layout
-                >
-                    <AnimatePresence mode="popLayout">
-                        {filteredArtworks.map((artwork) => (
-                            <GalleryItem
-                                key={artwork.id}
-                                artwork={artwork}
-                                onClick={() => setSelectedArtwork(artwork)}
-                            />
-                        ))}
-                    </AnimatePresence>
-                </motion.div>
+                {isLoading ? (
+                    <div className="gallery-loading-inline">
+                        <div className="loading-spinner-small"></div>
+                    </div>
+                ) : (
+                    <motion.div
+                        className="gallery-grid"
+                        layout
+                    >
+                        <AnimatePresence mode="popLayout">
+                            {filteredArtworks.map((artwork) => (
+                                <GalleryItem
+                                    key={artwork.id}
+                                    artwork={artwork}
+                                    onClick={() => setSelectedArtwork(artwork)}
+                                />
+                            ))}
+                        </AnimatePresence>
+                    </motion.div>
+                )}
 
                 {/* Lightbox Modal */}
                 <AnimatePresence>
@@ -92,14 +121,17 @@ const Gallery = () => {
                                     ✕
                                 </button>
                                 <div className="lightbox-image-wrapper">
-                                    <div className="lightbox-placeholder">
-                                        <span>{selectedArtwork.title}</span>
-                                    </div>
+                                    <img
+                                        src={selectedArtwork.src || selectedArtwork.image}
+                                        alt={selectedArtwork.title}
+                                    />
                                 </div>
                                 <div className="lightbox-info">
                                     <h3>{selectedArtwork.title}</h3>
                                     <p className="lightbox-category">{selectedArtwork.category}</p>
-                                    <p className="lightbox-description">{selectedArtwork.description}</p>
+                                    {selectedArtwork.description && (
+                                        <p className="lightbox-description">{selectedArtwork.description}</p>
+                                    )}
                                 </div>
                             </motion.div>
                         </motion.div>

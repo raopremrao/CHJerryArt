@@ -90,8 +90,18 @@
 
 .lightbox-image-wrapper {
     width: 100%;
-    aspect-ratio: 16/9;
+    max-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: var(--color-bg-tertiary);
+    overflow: hidden;
+}
+
+.lightbox-image-wrapper img {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
 }
 
 .lightbox-placeholder {
@@ -127,6 +137,28 @@
 .lightbox-description {
     color: var(--color-text-secondary);
     line-height: 1.8;
+}
+
+/* Inline Loading */
+.gallery-loading-inline {
+    display: flex;
+    justify-content: center;
+    padding: 3rem;
+}
+
+.loading-spinner-small {
+    width: 36px;
+    height: 36px;
+    border: 3px solid rgba(212, 175, 55, 0.2);
+    border-top-color: var(--color-gold);
+    border-radius: 50%;
+    animation: spin-gallery 0.8s linear infinite;
+}
+
+@keyframes spin-gallery {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @media (max-width: 968px) {
