@@ -9,8 +9,8 @@ export const AdminProvider = ({ children }) => {
     // No session persistence - admin must login after every page reload
 
     const login = (name, password) => {
-        const correctName = import.meta.env.VITE_ADMIN_NAME;
-        const correctPassword = import.meta.env.VITE_ADMIN_PASSWORD;
+        const correctName = import.meta.env.AUTH_USER;
+        const correctPassword = import.meta.env.AUTH_CODE;
 
         if (name === correctName && password === correctPassword) {
             setIsAdmin(true);
