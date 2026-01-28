@@ -27,7 +27,8 @@ const FullGallery = () => {
         { id: 15, src: '/images/AllArt/hand/hand1.jpeg', title: 'Mahendi Design', category: 'Bridal' },
         { id: 16, src: '/images/AllArt/hand/hand2.jpeg', title: 'Mahendi Design', category: 'Mehendi' },
         { id: 17, src: '/images/AllArt/hand/hand3.jpeg', title: 'Mahendi Design', category: 'Mehendi' },
-        { id: 17, src: '/images/AllArt/hand/hand4.jpeg', title: 'Mahendi Design', category: 'Mehendi' },
+        { id: 18, src: '/images/AllArt/hand/hand4.jpeg', title: 'Mahendi Design', category: 'Mehendi' },
+        { id: 19, src: '/images/AllArt/hand/hand5.jpeg', title: 'Mahendi Design', category: 'Mehendi' },
     ];
 
     const categories = ['All', 'Mehendi', 'Bridal', 'Cultural', 'Sketch', 'Mandala'];
