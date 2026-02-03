@@ -5,7 +5,7 @@ import './GalleryPreview.css';
 const GalleryPreview = () => {
     // Initial 4 images from public/images/initial/
     const previewImages = [
-        { id: 1, src: '/images/initial/art.jpg', title: 'Artistic Mehendi Design' },
+        { id: 1, src: '/images/initial/hand1.jpeg', title: 'Artistic Mehendi Design' },
         { id: 2, src: '/images/initial/hand2.jpg', title: 'Intricate Hand Art' },
         { id: 3, src: '/images/initial/hands1.jpg', title: 'Bridal Mehendi' },
         { id: 4, src: '/images/initial/Navratri.jpg', title: 'Navratri Special' },
